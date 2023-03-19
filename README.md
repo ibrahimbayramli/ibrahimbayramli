@@ -22,9 +22,7 @@
 
 ###
 
-<img src="https://raw.githubusercontent.com/i/i/blob/output/snake.svg" alt="Snake animation" />
 
-###
 
 <div align="center">
 <a href="www.linkedin.com/in/ibrahimbayramli">
