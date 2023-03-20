@@ -3,7 +3,7 @@
 <br/>  
 
 
-## My Skill Set  
+## Tech Stack  
 <table><tr><td valign="top" width="50%">
 
 
