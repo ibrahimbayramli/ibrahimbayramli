@@ -1,31 +1,35 @@
-name: Metrics
+name: Profile Cards
 on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
 
 concurrency:
-  group: metrics
-  cancel-in-progress: true
+  group: profile-cards
+  cancel-in-progress: false
 
 jobs:
-  github-metrics:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: Eski kartları sil
+      - name: Temizlik
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          rm -f metrics.achievements.svg metrics.topics.svg metrics.habits.svg metrics.activity.svg metrics.people.svg metrics.stars.svg metrics.lines.svg
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name '.github' \
+            ! -name '*.md' \
+            -exec rm -rf {} +
           git add -A
-          git diff --staged --quiet || git commit -m "chore: eski kartları temizle"
+          git diff --staged --quiet || git commit -m "chore: temizlik"
           git pull --rebase --autostash
           git push
 
-      - name: Ana kart
+      - name: Metrics
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@latest
         with:
@@ -39,3 +43,21 @@ jobs:
           plugin_languages: yes
           plugin_languages_details: percentage, lines
           plugin_languages_limit: 8
+
+      - name: Snake üret
+        if: ${{ success() || failure() }}
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - name: Snake yayınla
+        if: ${{ success() || failure() }}
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
