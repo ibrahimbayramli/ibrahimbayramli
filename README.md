@@ -18,10 +18,12 @@
 
 ### 3D Contributions
 
-<img src="./profile-3d-contrib/profile-night-rainbow.svg" width="100%">
+<img src="https://raw.githubusercontent.com/ibrahimbayramli/ibrahimbayramli/main/profile-3d-contrib/profile-night-rainbow.svg" width="100%">
 
-### Trophies
+### Streak
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=ibrahimbayramli&theme=onedark&no-frame=true&column=7)](https://github.com/ryo-ma/github-profile-trophy)
+[![GitHub Streak](https://streak-stats.demolab.com?user=ibrahimbayramli&theme=dark&hide_border=true)](https://git.io/streak-stats)
 
-<img src="./github-metrics.svg" alt="Metrics" width="100%">
+### Metrics
+
+<img src="https://raw.githubusercontent.com/ibrahimbayramli/ibrahimbayramli/main/github-metrics.svg" alt="Metrics" width="100%">
