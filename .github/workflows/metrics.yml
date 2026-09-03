@@ -13,6 +13,20 @@ jobs:
     permissions:
       contents: write
     steps:
+      # ---------- Eski kartları temizle ----------
+      - uses: actions/checkout@v4
+
+      - name: Eski kartları sil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -f metrics.achievements.svg metrics.topics.svg
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: eski kartları temizle"
+          git pull --rebase --autostash
+          git push
+
+      # ---------- Ana kart ----------
       - name: Ana kart
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@latest
@@ -30,6 +44,7 @@ jobs:
           plugin_languages_details: percentage, lines
           plugin_languages_limit: 8
 
+      # ---------- Alışkanlıklar ----------
       - name: Alışkanlıklar
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@latest
@@ -43,6 +58,7 @@ jobs:
           plugin_habits_charts: yes
           plugin_habits_facts: yes
 
+      # ---------- Satır istatistikleri ----------
       - name: Satır istatistikleri
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@latest
